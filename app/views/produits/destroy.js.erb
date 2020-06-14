@@ -1,0 +1,14 @@
+$("#produit_num_<%= @identifiant %>").remove();
+$("#nb_produit_<%= @panier.id %>").text("<%= @panier.produits.count %>");
+
+$("#nb_produit_total").text(parseInt( $("#nb_produit_total").text()) - 1  );
+
+swal({
+toast: true,
+position: 'center',
+background: '#28a745',
+showConfirmButton: false,
+timer: 3000,
+type: 'success',
+title: "Produit supprimé."
+});

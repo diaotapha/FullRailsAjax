@@ -1,0 +1,6 @@
+<%= link_to root_path(filter: panier.name ), class: "pointer", remote: true do%>
+    <div class="p-3 pointer alert-secondary panier_<%= panier.name %> panier">
+        <span class="text-dark"> <%= panier.name %> </span>
+        <span id="nb_produit_<%= panier.id %>" class="float-right mt-1 badge badge-pill badge-success"> <%= panier.produits.count %> </span>
+    </div>
+<% end %>

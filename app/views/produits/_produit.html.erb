@@ -1,0 +1,52 @@
+<td><%= produit.name %></td>
+<td><%= produit.price %></td>
+<td><%= produit.panier.name %></td>
+<td class="text-center">
+    <a class="pointer btn btn-success" data-toggle="modal" href="#" onclick="$('#modal_edit_produit_<%= produit.id %>').modal('toggle');"> Modifier </a>
+</td>
+<td class="text-center"><%= link_to "Supprimer", produit , method: :delete , remote: true , data: {confirm: "Are you sure?"} , class: "btn btn-danger" %></td>
+
+
+<!-- New produit-->
+<div class="modal fadeShow" data-keyboard="false" data-backdrop="true" tabindex="-1" id="modal_edit_produit_<%= produit.id %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Modifier produit</h5>
+          <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      
+      <%= form_for produit ,url: produit_path(produit) , html: {id: "form_edit_produit_#{produit.id}"} , remote: true do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.text_field :name , placeholder: "Nom du produit" ,class: "form-control", required: true , id:"nom_prod_#{produit.name}"%>
+          </div>
+          <div class="form-group">
+            <%= f.number_field :price , placeholder: "Prix du produit" ,class: "form-control", required: true%>
+          </div>
+           <div class="form-group">
+            <%= f.select :panier_id , @paniers.collect{ |panier| [panier.name, panier.id] } , {prompt: "Choisir panier..."} , {class: "form-control", required: true}  %>
+          </div>
+        </div>
+          
+        <div class="modal-footer modal-footer-uniform">
+          <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Fermer</button>
+          <%= f.submit "Modifier", class: "btn btn-bold btn-pure btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<!--End Modal-->
+
+<script>
+$(document).ready(function(){
+    $("#form_edit_produit_<%= produit.id %>").on('submit', function(){
+        $(".modal").hide();
+        $('body').append('<div class="backdrop_spinner"></div>');
+        $('body').append('<div class="loader_taph"></div>');
+    }); 
+})
+</script>

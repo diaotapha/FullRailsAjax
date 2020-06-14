@@ -1,0 +1,8 @@
+$("#blocs_produits").html("<%= raw escape_javascript(render 'produits/render_products', produits:  @produits ) %>");
+
+ 
+$(".panier").removeClass('alert-success');
+$(".panier").addClass('alert-secondary');
+
+$(".panier_<%= @name %>").removeClass('alert-secondary');
+$(".panier_<%= @name %>").addClass('alert-success');

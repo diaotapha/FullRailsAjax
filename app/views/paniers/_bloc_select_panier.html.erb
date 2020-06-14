@@ -1,0 +1,1 @@
+<%= f.select :panier_id , paniers.collect{ |panier| [panier.name, panier.id] } , {prompt: "Choisir panier..."} , {class: "form-control", required: true}  %>

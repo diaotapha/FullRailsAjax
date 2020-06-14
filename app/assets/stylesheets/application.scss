@@ -1,0 +1,77 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @import "bootstrap";
+
+ .pointer{
+    cursor: pointer;
+    text-decoration:none !important; 
+ }
+
+
+@keyframes fadeShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+  
+.fadeShow {
+	animation-name: fadeShow;
+	animation-duration: 1s;
+}
+
+
+.loader_taph{
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #28a745;
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin: auto;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+    }
+  
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+  
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  
+    .backdrop_spinner{
+      position:fixed;
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      z-index:1040;
+      background-color:#000;
+      opacity: 0.2;
+    }

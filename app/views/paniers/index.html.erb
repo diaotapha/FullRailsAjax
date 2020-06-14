@@ -1,0 +1,157 @@
+<div class="container bg-gray">
+  <div class="row mt-5">
+    
+    <div class="col-12 mb-3">
+      <h5 class="text-muted" >AJAX FORMATION</h5>
+    </div>
+
+    <div class="col-4 mt-3">
+        Paniers
+    </div>	
+    <div class="col-8 mt-3">
+      <h6>Liste des produits
+        <a class="float-right pointer text-success" data-toggle="modal" href="#" onclick="$('#modal_new_produit').modal('toggle');"> + nouveau produit </a>	
+      </h6>
+    </div>	
+
+    <div class="col-4">
+      <div class="row">
+
+        <div class="col-12 mt-3">
+          <%= link_to root_path(filter: "all"), class: "pointer", remote: true do%>
+            <div class="p-3 alert-success panier_tout panier">
+              <span class="text-dark">Tout</span>
+              <span id="nb_produit_total" class="float-right mt-1 badge badge-pill badge-success"> <%= @produits.count %> </span>
+            </div>	
+          <% end %>
+        </div>
+
+        <div class="col-12">
+          <div class="row" id="blocs_paniers">
+            <% @paniers.each do |panier| %>
+              <div class="col-12 mt-3" id="panier_num_<%= panier.id %>">
+                <%= render panier %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        
+        <div class="col-12 text-center mt-3">
+          <a class="pointer text-success" data-toggle="modal" href="#" onclick="$('#modal_new_panier').modal('toggle');"> + nouveau panier </a>	
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div class="row">
+        <div class="col-12 mt-3">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-lg">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prix</th>
+                  <th>Panier</th>
+                  <th class="text-center" colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody id="blocs_produits">
+                <% @produits.each do |produit| %>
+                  <tr id="produit_num_<%= produit.id %>">
+                    <%= render produit %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- New produit-->
+<div class="modal fadeShow" data-keyboard="false" data-backdrop="true" tabindex="-1" id="modal_new_produit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Nouveau produit</h5>
+          <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      
+      <%= form_for :produit ,url: produits_path() , html: {id: "form_new_produit"} , remote: true do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.text_field :name , placeholder: "Nom du produit" ,class: "form-control", required: true%>
+          </div>
+          <div class="form-group">
+            <%= f.number_field :price , placeholder: "Prix du produit" ,class: "form-control", required: true%>
+          </div>
+           <div class="form-group" id="bloc_select_panier">
+            <%= render 'bloc_select_panier', f: f, paniers: @paniers %>
+          </div>
+        </div>
+          
+        <div class="modal-footer modal-footer-uniform">
+          <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Fermer</button>
+          <%= f.submit "Ajouter", class: "btn btn-bold btn-pure btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<!--End Modal-->
+
+<!-- New panier-->
+<div class="modal fadeShow" data-keyboard="false" data-backdrop="true" tabindex="-1" id="modal_new_panier">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Nouveau panier</h5>
+          <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      
+      <%= form_for :panier ,url: paniers_path() , html: {id: "form_new_panier"} , remote: true do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.text_field :name , placeholder: "Nom du panier" ,class: "form-control", required: true%>
+          </div>
+        </div>
+          
+        <div class="modal-footer modal-footer-uniform">
+          <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">Fermer</button>
+          <%= f.submit "Ajouter", class: "btn btn-bold btn-pure btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<!--End Modal-->
+
+<script>
+$(document).ready(function(){
+   
+    $("#form_new_panier").on('submit', function(){
+        $(".modal").hide();
+        $('body').append('<div class="backdrop_spinner"></div>');
+        $('body').append('<div class="loader_taph"></div>');
+    }); 
+
+    $("#form_new_produit").on('submit', function(){
+        $(".modal").hide();
+        $('body').append('<div class="backdrop_spinner"></div>');
+        $('body').append('<div class="loader_taph"></div>');
+    }); 
+    
+})
+</script>
+

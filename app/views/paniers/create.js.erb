@@ -1,0 +1,40 @@
+<% if !@panier.errors.any? %>
+
+    $("#blocs_paniers").prepend(" <%= raw escape_javascript render('paniers/add_new', panier: @panier )%> ");
+
+    $('body').removeClass("modal-open");
+    $(".modal-backdrop").remove();
+    $(".backdrop_spinner").remove();
+    $(".loader_taph").remove();
+
+    $("#form_new_panier").find('.form-control').val("");
+
+    '<%= form_for(@produit) do |ff| %>'
+        $('#bloc_select_panier').html("<%= j render(partial: 'paniers/bloc_select_panier', locals: {f: ff, paniers: @paniers}) %>");
+    '<% end %>' 
+
+    swal({
+    toast: true,
+    position: 'center',
+    background: '#28a745',
+    showConfirmButton: false,
+    timer: 3000,
+    type: 'success',
+    title: "Panier créé avec succès."
+    });
+
+<% else %>
+
+    swal({
+        toast: true,
+        position: 'center',
+        background: '#28a745',
+        showConfirmButton: false,
+        timer: 3000,
+        type: 'error',
+        title: "Erreur lors de la création."
+    });
+
+<% end %>
+
+
