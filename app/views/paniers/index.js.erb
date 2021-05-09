@@ -1,3 +1,4 @@
+<% if params[:filter].present? %>
 $("#blocs_produits").html("<%= raw escape_javascript(render 'produits/render_products', produits:  @produits ) %>");
 
  
@@ -6,3 +7,18 @@ $(".panier").addClass('alert-secondary');
 
 $(".panier_<%= @name %>").removeClass('alert-secondary');
 $(".panier_<%= @name %>").addClass('alert-success');
+
+<% elsif params[:page].present?  %>
+		
+	<% @produits.each do |produit| %>
+		$("#blocs_produits").append("<%= j render(produit) %>");
+	<% end %>
+
+    <% if @produits.next_page %>
+        $('.pagination').replaceWith('<%= j will_paginate(@produits) %>');
+    <% else %>
+        $('.pagination').remove();
+    <% end %>
+
+
+<% end %>

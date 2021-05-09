@@ -1,4 +1,4 @@
-$("#produit_num_<%= @produit.id %>").html(" <%= raw escape_javascript render('produits/produit', produit: @produit )%> ");
+$("#produit_num_<%= @produit.id %>").replaceWith(" <%= raw escape_javascript render('produits/add_new', produit: @produit )%> ");
 
 $('body').removeClass("modal-open");
 $(".modal-backdrop").remove();

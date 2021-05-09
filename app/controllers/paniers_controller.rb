@@ -17,7 +17,8 @@ class PaniersController < ApplicationController
       end
 
     else
-      @produits =  Produit.all.order('name')
+      @produits =  Produit.order('name').paginate(:page => params[:page], :per_page => 10)
+
     end
     respond_to do |format|
         format.js{}

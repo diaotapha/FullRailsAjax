@@ -1,5 +1,7 @@
+<tr id="produit_num_<%= produit.id %>">
+
 <td><%= produit.name %></td>
-<td><%= produit.price %></td>
+<td><%= number_with_delimiter(produit.price.to_i, :delimiter => ' ')  %></td>
 <td><%= produit.panier.name %></td>
 <td class="text-center">
     <a class="pointer btn btn-success" data-toggle="modal" href="#" onclick="$('#modal_edit_produit_<%= produit.id %>').modal('toggle');"> Modifier </a>
@@ -41,6 +43,8 @@
 </td>
 <td class="text-center"><%= link_to "Supprimer", produit , method: :delete , remote: true , data: {confirm: "Are you sure?"} , class: "btn btn-danger" %></td>
 
+
+
 <script>
 $(document).ready(function(){
     $("#form_edit_produit_<%= produit.id %>").on('submit', function(){
@@ -50,3 +54,5 @@ $(document).ready(function(){
     }); 
 })
 </script>
+
+</tr>
